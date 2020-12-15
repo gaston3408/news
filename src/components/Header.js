@@ -5,13 +5,13 @@ import Nav from './Nav'
 const Header = ({setCategory}) => {
 
     const options = [
-        { value: 'general', name: 'general'},
-        { value: 'entertainment', name: 'entretenimiento'},
-        { value: 'technology', name: 'tecnologia'},
-        { value: 'sports', name: 'deportes'},
-        { value: 'science', name: 'ciencia'},
-        { value: 'health', name: 'salud'},
-        { value: 'business', name: 'negocios'}
+        { value: 'general', name: 'General'},
+        { value: 'entertainment', name: 'Espectaculos'},
+        { value: 'technology', name: 'Tecnologia'},
+        { value: 'sports', name: 'Deportes'},
+        { value: 'science', name: 'Ciencia'},
+        { value: 'health', name: 'Salud'},
+        { value: 'business', name: 'Negocios'}
     ]
 
     const [ option, SelectOption] = useSelect(options[0].value, options)
