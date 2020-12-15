@@ -1,24 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React,  {useState, useEffect} from 'react';
+import Header from './components/Header';
+import News from './components/News';
 
-function App() {
+const App = () => {
+
+  const [ category, setCategory] = useState('')
+  const [ news, setNews ] = useState([])
+  const [ page , setPage ] = useState(10)
+  const [ noMoreNews, setNoMoreNews] = useState(false)
+
+  const getNews = async(category, page) => {
+    try {
+      const response = await fetch(`https://newsapi.org/v2/top-headlines?country=ar&category=${category}&pageSize=${page}&apiKey=0b61c10bfc1b46a0bedd5667a4bca0df`)
+      const data = await response.json()
+      setNews(data.articles)
+      setPage( page )
+      if(data.totalResults < page ) setNoMoreNews( true )
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getMoreNews = () =>{
+      getNews(category, page + 10)
+  }
+
+
+  
+  useEffect(() => {
+     
+    getNews( category, 10)
+      .then( news =>{
+        setPage(10)
+        setNoMoreNews( false )
+      })
+    
+  }, [category])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header setCategory={setCategory}/>
+      <News news={news}/>
+      <div className="d-flex justify-content-center">
+        <button style={{display: noMoreNews && 'none'}} onClick={() =>getMoreNews()} className="btn btn-dark m-4" >VER MAS</button>
+      </div>
+    </>
   );
 }
 
