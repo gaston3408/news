@@ -12,7 +12,7 @@ const App = () => {
   const getNews = async(category, page) => {
     const url = `&category=${category}`
     try {
-      const response = await fetch(`http://newsapi.org/v2/top-headlines?country=ar${url}&pageSize=${page}&apiKey=0b61c10bfc1b46a0bedd5667a4bca0df`)
+      const response = await fetch(`https://newsapi.org/v2/top-headlines?country=ar${url}&pageSize=${page}&apiKey=0b61c10bfc1b46a0bedd5667a4bca0df`)
       const data = await response.json()     
       setNews(data.articles)
       setPage( page )
